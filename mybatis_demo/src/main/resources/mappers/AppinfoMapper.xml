@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.demo.mapper.AppinfoMapper">
+	<!-- 这里namespace必须是AppinfoMapper接口的路径” -->
+	<insert id="insertAppinfoDO" parameterType="appinfoDO">
+	<![CDATA[
+	     insert into dp_appinfo(memberid, appname, homepage, packagename, platform, flooropen, status, siteid, app_site_info, gmt_create, gmt_modified) 
+         values (#{memberId}, #{appName}, #{homePage}, #{packageName}, #{platform}, #{floorOpen}, #{status}, #{siteId}, #{appSiteInfo}, now(), now())
+       ]]>
+	    <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
+	</insert>
+	
+	<!-- 这里的id必须和AppinfoMapper接口中的接口方法名相同 -->
+	<select id="getAppinfoDO" resultType="appinfoDO" parameterType="appinfoDO">
+	<![CDATA[
+	    select * from dp_appinfo where 1=1
+	     ]]>
+	     <if test="memberId != null">  
+         and memberid = #{memberId}  
+	    </if>  
+	    <if test="appId != null">  
+	     and appid=#{appId}  
+	    </if>
+	</select>
+	<select id="getAppName" resultType="java.lang.String" parameterType="java.lang.Long">
+	<![CDATA[
+	    select appname from dp_appinfo where appid=#{appId}
+	    ]]>
+	</select>
+	<select id="getAllAppName" parameterType="appinfoDO">
+	<![CDATA[
+	    select appname from dp_appinfo where 1=1
+	    ]]>
+	    <if test="memberId != null">  
+         and memberid = #{memberId}  
+	    </if>  
+	    <if test="appId != null">  
+	        and appid=#{appId}  
+	    </if>
+	</select>
+	
+</mapper>  
