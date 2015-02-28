@@ -19,7 +19,6 @@ public class MybatisDemoTest {
 
     public static void main(String[] args) {
     	getAppinfoDO();
-    	testAdd();
     	getAppName();
     	getAllAppName();
     }
